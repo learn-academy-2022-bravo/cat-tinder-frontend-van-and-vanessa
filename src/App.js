@@ -25,6 +25,10 @@ class App extends Component {
     }
   }
 
+  CreateFood (newlyCreatedFood) => {
+    console.log(newlyCreatedFood);
+  }
+
   render() {
     console.log(this.state.foods)
     return (
@@ -40,7 +44,11 @@ class App extends Component {
 
 
 
-        <Route path="/foodnew" component={FoodNew}/>
+        <Route path="/foodnew"
+        render{() => {
+          return <FoodNew createCat={this.createFood}/>
+        }}
+        />
 
         <Route path="/foodshow/:id" render={(props) => {
           let id = +props.match.params.id
