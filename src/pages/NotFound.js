@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-
+import Notfoundpic from '../assets/Notfoundpic.jpg';
 class NotFound extends Component {
     render() {
         return (
             <div>
-                <h2> Not Found</h2>
+                <img src={Notfoundpic} width="200" height="200" />
             </div>
         );
     }
