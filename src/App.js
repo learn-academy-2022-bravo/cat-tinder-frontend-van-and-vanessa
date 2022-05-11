@@ -33,10 +33,21 @@ class App extends Component {
 
        <Switch>
         <Route exact path="/" component= {Home}/>
+
+        <Route path="/foodindex" render={(props) => <FoodIndex foods={this.state.foods} />} />
+
         <Route path="/foodedit" component={FoodEdit}/>
-        <Route path="/foodindex" component={FoodIndex}/>
+
+
+
         <Route path="/foodnew" component={FoodNew}/>
-        <Route path="/foodshow" component={FoodShow}/>
+
+        <Route path="/foodshow/:id" render={(props) => {
+          let id = +props.match.params.id
+          let food = this.state.foods.find(foodObject => foodObject.id === id)
+          return <FoodShow food={food}/>
+        }}/>
+
         <Route component={NotFound}/>
       </Switch>
 
