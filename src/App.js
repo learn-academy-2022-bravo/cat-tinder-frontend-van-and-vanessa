@@ -27,8 +27,10 @@ class App extends Component {
   }
 
   createFood = (newlyCreatedFood) => {
-    console.log(newlyCreatedFood);
   }
+
+  updateFood = (food, id) => {
+}
 
   render() {
     console.log(this.state.foods)
@@ -41,9 +43,11 @@ class App extends Component {
 
         <Route path="/foodindex" render={(props) => <FoodIndex foods={this.state.foods} />} />
 
-        <Route path="/foodedit" component={FoodEdit}/>
-
-
+        <Route path="/foodedit/:id" render={(props) => {
+          let id = props.match.params.id
+          let food = this.state.foods.find(food => food.id === +id)
+          return <FoodEdit updateFood={this.updateFood} food={food} />
+        }}/>
 
         <Route path="/foodnew"
         render={(props) => {
