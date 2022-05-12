@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import foods from './mockFood.js'
 import {
@@ -25,6 +26,10 @@ class App extends Component {
     }
   }
 
+  createFood = (newlyCreatedFood) => {
+    console.log(newlyCreatedFood);
+  }
+
   render() {
     console.log(this.state.foods)
     return (
@@ -40,7 +45,11 @@ class App extends Component {
 
 
 
-        <Route path="/foodnew" component={FoodNew}/>
+        <Route path="/foodnew"
+        render={(props) => {
+          return <FoodNew createFood={this.createFood}/>
+        }}
+        />
 
         <Route path="/foodshow/:id" render={(props) => {
           let id = +props.match.params.id
