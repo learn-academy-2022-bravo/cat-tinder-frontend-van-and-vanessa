@@ -17,6 +17,11 @@ class FoodShow extends Component {
                   <NavLink to={`/foodedit/${this.props.food.id}`}>
                     <Button>Edit Food Profile</Button>
                   </NavLink>
+
+                  <NavLink to={`/foodindex/${this.props.food.id}`}>
+                    <Button> Delete Food Profile </Button>
+                  </NavLink>
+                  
                   </div>}
             </div>
         );

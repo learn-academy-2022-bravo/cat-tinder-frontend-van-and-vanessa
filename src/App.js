@@ -1,6 +1,5 @@
 
 import React, { Component } from 'react'
-import foods from './mockFood.js'
 import {
   BrowserRouter as Router,
   Route,
@@ -20,15 +19,59 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      foods: foods
+      foods: []
     }
   }
 
+  componentDidMount(){
+    this.readFood()
+  }
+
+readFood = () => {
+  fetch("http://localhost:3000/foods")
+  .then(response => response.json())
+  .then(payload => this.setState({foods: payload}))
+  .catch(errors => console.log("Food read errors:", errors))
+} 
+
   createFood = (newlyCreatedFood) => {
+    fetch("http://localhost:3000/foods", {
+      body: JSON.stringify(newlyCreatedFood),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    })
+    .then(response => response.json())
+    .then(() => this.readFood())
+    .catch(errors => console.log("Food create errors:", errors))
   }
 
   updateFood = (food, id) => {
-  }
+    fetch(`http://localhost:3000/foods/${id}`, {
+        body: JSON.stringify(food),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "PATCH"
+      })
+      .then(response => response.json())
+      .then(payload => this.readFood())
+      .catch(errors => console.log("Food update errors:", errors))
+    }
+
+    deleteFood = (id) => {
+      fetch(`http://localhost:3000/foods/${id}`, {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "DELETE"
+      })
+      .then(response => response.json())
+      .then(payload => this.readFood())
+      .catch(errors => console.log("delete errors:", errors))
+    }
+
 
   render() {
     return (
@@ -54,8 +97,8 @@ class App extends Component {
 
           <Route path="/foodshow/:id" render={(props) => {
             let id = +props.match.params.id
-            let food = this.state.foods.find(foodObject => foodObject.id === id)
-            return <FoodShow food={food} />
+            let food = this.state.foods.find(food => food.id === +id)
+            return <FoodShow deleteFood={this.deleteFood} food={food} />
           }} />
 
           <Route component={NotFound} />
