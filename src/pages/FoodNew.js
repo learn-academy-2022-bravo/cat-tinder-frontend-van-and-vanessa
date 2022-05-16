@@ -30,7 +30,7 @@ handleSubmit = () => {
     render() {
         return (
             <div>
-                <h2>Food New</h2>
+                {/* <h2>Food New</h2> */}
 
   <Form>
   <FormGroup>
