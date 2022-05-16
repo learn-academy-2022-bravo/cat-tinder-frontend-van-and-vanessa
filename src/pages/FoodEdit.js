@@ -29,7 +29,7 @@ class FoodEdit extends Component {
     render() {
         return (
             <div>
-                <h2>Food Edit</h2>
+                
                 <Form>
                 <FormGroup>
                   <Label for="dishname">Dish Name</Label>
